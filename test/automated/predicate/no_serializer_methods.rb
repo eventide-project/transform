@@ -1,11 +1,11 @@
 require_relative '../automated_init'
 
 context "Serializer namespace has no serializer methods" do
-  example = Serialize::Controls::NoSerializerMethods.example
-  subject_const = Serialize.subject_const(example)
-  serializer = Serialize.get_serializer(subject_const)
+  example = Controls::NoSerializerMethods.example
+  subject_const = Transform.subject_const(example)
+  serializer = Transform.get_serializer(subject_const)
 
-  [Serialize::Read, Serialize::Write].each do |cls|
+  [Read, Write].each do |cls|
     test "#{cls.name} implementation is not detected" do
       implemented = cls.implemented?(example, :some_format)
       assert(!implemented)
@@ -14,21 +14,21 @@ context "Serializer namespace has no serializer methods" do
 
   context "Format" do
     test "Not detected" do
-      format = Serialize.format_accessor?(:some_format, serializer)
+      format = Transform.format_accessor?(:some_format, serializer)
       assert(!format)
     end
   end
 
   context "Instance" do
     test "Not detected" do
-      detected = Serialize.intermediate?(serializer, :instance)
+      detected = Transform.intermediate?(serializer, :instance)
       assert(!detected)
     end
   end
 
   context "Raw Data" do
     test "Not detected" do
-      detected = Serialize.intermediate?(serializer, :raw_data)
+      detected = Transform.intermediate?(serializer, :raw_data)
       assert(!detected)
     end
   end

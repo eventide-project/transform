@@ -1,9 +1,9 @@
 require_relative '../automated_init'
 
 context "Implemented" do
-  example = Serialize::Controls::Instance.example
+  example = Controls::Instance.example
 
-  [Serialize::Read, Serialize::Write].each do |cls|
+  [Read, Write].each do |cls|
     test "#{cls.name} implementation is detected" do
       implemented = cls.implemented?(example, :some_format)
       assert(implemented)

@@ -1,11 +1,11 @@
 require_relative '../automated_init'
 
-context "Class has no serializer namespace" do
+context "Class has no transformer namespace" do
   test "Is an error" do
-    example = Serialize::Controls::NoSerializer.example
+    example = Controls::NoSerializer.example
 
-    assert proc { Serialize.serializer example } do
-      raises_error? Serialize::Error
+    assert proc { Transform.serializer example } do
+      raises_error? Transform::Error
     end
   end
 end

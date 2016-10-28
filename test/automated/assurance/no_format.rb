@@ -1,13 +1,13 @@
 require_relative '../automated_init'
 
-context "Serializer has no format namespace" do
+context "Transformer has no format namespace" do
   test "Is an error" do
-    example = Serialize::Controls::NoFormat.example
-    subject_const = Serialize.subject_const(example)
-    serializer = Serialize.get_serializer(subject_const)
+    example = Controls::NoFormat.example
+    subject_const = Transform.subject_const(example)
+    serializer = Transform.get_serializer(subject_const)
 
-    assert proc { Serialize.format(serializer, :some_format) } do
-      raises_error? Serialize::Error
+    assert proc { Transform.format(serializer, :some_format) } do
+      raises_error? Transform::Error
     end
   end
 end

@@ -1,28 +1,28 @@
 require_relative '../automated_init'
 
 context "Format has no format methods" do
-  example = Serialize::Controls::NoFormatMethods.example
-  subject_const = Serialize.subject_const(example)
-  serializer = Serialize.get_serializer(subject_const)
-  format = Serialize.get_format(:some_format, serializer)
+  example = Controls::NoFormatMethods.example
+  subject_const = Transform.subject_const(example)
+  serializer = Transform.get_serializer(subject_const)
+  format = Transform.get_format(:some_format, serializer)
 
-  [Serialize::Read, Serialize::Write].each do |cls|
+  [Read, Write].each do |cls|
     test "#{cls.name} implementation is not detected" do
       implemented = cls.implemented?(example, :some_format)
       assert(!implemented)
     end
   end
 
-  context "Serialize" do
+  context "Transform" do
     test "Not detected" do
-      detected = Serialize.mode?(format, :serialize)
+      detected = Transform.mode?(format, :serialize)
       assert(!detected)
     end
   end
 
   context "Deserialize" do
     test "Not detected" do
-      detected = Serialize.mode?(format, :deserialize)
+      detected = Transform.mode?(format, :deserialize)
       assert(!detected)
     end
   end

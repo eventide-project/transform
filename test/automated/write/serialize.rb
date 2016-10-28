@@ -1,7 +1,7 @@
 require_relative '../automated_init'
 
-context "Serialize" do
-  test "Converts an instance into text" do
+context "Transform" do
+  test "Transforms an instance into text" do
     control_text = Controls::Text.example
 
     instance = Controls::Instance.example
