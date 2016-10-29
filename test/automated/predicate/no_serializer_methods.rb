@@ -1,7 +1,7 @@
 require_relative '../automated_init'
 
-context "Serializer namespace has no serializer methods" do
-  example = Controls::NoSerializerMethods.example
+context "Serializer namespace has no transformer methods" do
+  example = Controls::NoTransformMethods.example
   subject_const = Transform.subject_const(example)
   serializer = Transform.get_serializer(subject_const)
 
