@@ -2,7 +2,7 @@ require_relative '../automated_init'
 
 context "Class has no transformer namespace" do
   test "Is an error" do
-    example = Controls::NoSerializer.example
+    example = Transform::Controls::NoSerializer.example
 
     assert proc { Transform.serializer example } do
       raises_error? Transform::Error

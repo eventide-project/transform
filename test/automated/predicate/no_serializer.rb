@@ -1,9 +1,9 @@
 require_relative '../automated_init'
 
 context "Class has no serializer namespace" do
-  example = Controls::NoSerializer.example
+  example = Transform::Controls::NoSerializer.example
 
-  [Read, Write].each do |cls|
+  [Transform::Read, Transform::Write].each do |cls|
     test "#{cls.name} implementation is not detected" do
       implemented = cls.implemented?(example, :some_format)
       assert(!implemented)

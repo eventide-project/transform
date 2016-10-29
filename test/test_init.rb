@@ -11,4 +11,3 @@ require 'pp'
 require 'securerandom'
 
 require 'transform/controls'
-include Transform

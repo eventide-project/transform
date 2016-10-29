@@ -1,11 +1,11 @@
 require_relative '../automated_init'
 
 context "Serializer namespace has no transformer methods" do
-  example = Controls::NoTransformMethods.example
+  example = Transform::Controls::NoTransformMethods.example
   subject_const = Transform.subject_const(example)
   serializer = Transform.get_serializer(subject_const)
 
-  [Read, Write].each do |cls|
+  [Transform::Read, Transform::Write].each do |cls|
     test "#{cls.name} implementation is not detected" do
       implemented = cls.implemented?(example, :some_format)
       assert(!implemented)
