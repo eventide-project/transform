@@ -25,7 +25,7 @@ module Transform
 
       transformed = instance(raw_data, cls)
 
-      logger.debug { "Read (Format Name: #{format_name.inspect})" }
+      logger.info { "Read (Format Name: #{format_name.inspect})" }
       logger.debug(tags: [:data, :transformed]) { transformed.pretty_inspect }
 
       transformed

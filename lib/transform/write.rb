@@ -22,7 +22,7 @@ module Transform
 
       transformed = format.write(raw_data)
 
-      logger.debug { "Wrote (Format Name: #{format_name.inspect})" }
+      logger.info { "Wrote (Format Name: #{format_name.inspect})" }
       logger.debug(tags: [:data, :transformed]) { transformed.pretty_inspect }
 
       transformed
