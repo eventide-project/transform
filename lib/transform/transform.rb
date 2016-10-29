@@ -4,24 +4,24 @@ module Transform
   class Error < RuntimeError; end
 
   def format(subject, format_name)
-    serializer = serializer(subject)
+    transformer = transformer(subject)
 
-    assure_format(format_name, serializer)
-    get_format(format_name, serializer)
+    assure_format(format_name, transformer)
+    get_format(format_name, transformer)
   end
 
-  def get_format(format_name, serializer)
-    serializer.send(format_name)
+  def get_format(format_name, transformer)
+    transformer.send(format_name)
   end
 
-  def serializer(subject)
+  def transformer(subject)
     subject_const = subject_const(subject)
 
-    assure_serializer(subject_const)
-    get_serializer(subject_const)
+    assure_transformer(subject_const)
+    get_transformer(subject_const)
   end
 
-  def get_serializer(subject_const)
+  def get_transformer(subject_const)
     subject_const.const_get(:Transformer)
   end
 
@@ -29,33 +29,33 @@ module Transform
     [Module, Class].include?(subject.class) ? subject : subject.class
   end
 
-  def assure_serializer(subject_const)
-    unless serializer_const?(subject_const)
+  def assure_transformer(subject_const)
+    unless transformer_const?(subject_const)
       raise Error, "#{subject_const.name} doesn't have a `Transformer' namespace"
     end
   end
 
-  def serializer?(subject)
+  def transformer?(subject)
     subject_const = subject_const(subject)
-    serializer_const?(subject_const)
+    transformer_const?(subject_const)
   end
 
-  def serializer_const?(subject_const)
+  def transformer_const?(subject_const)
     subject_const.const_defined?(:Transformer)
   end
 
-  def assure_format(format_name, serializer)
-    unless format_accessor?(format_name, serializer)
-      raise Error, "#{serializer.name} does not implement `#{format_name}'"
+  def assure_format(format_name, transformer)
+    unless format_accessor?(format_name, transformer)
+      raise Error, "#{transformer.name} does not implement `#{format_name}'"
     end
   end
 
-  def format_accessor?(format_name, serializer)
-    serializer.respond_to?(format_name)
+  def format_accessor?(format_name, transformer)
+    transformer.respond_to?(format_name)
   end
 
-  def format?(format_name, serializer)
-    format = get_format(format_name, serializer)
+  def format?(format_name, transformer)
+    format = get_format(format_name, transformer)
     !!format
   end
 
@@ -69,32 +69,32 @@ module Transform
     format.respond_to?(mode)
   end
 
-  def intermediate?(serializer, intermediate_name)
-    serializer.respond_to?(intermediate_name)
+  def intermediate?(transformer, intermediate_name)
+    transformer.respond_to?(intermediate_name)
   end
 
   def implemented?(subject, format_name)
     subject_const = subject_const(subject)
 
-    unless serializer_const?(subject_const)
+    unless transformer_const?(subject_const)
       return false
     end
 
-    serializer = get_serializer(subject_const)
+    transformer = get_transformer(subject_const)
 
-    unless intermediate?(serializer, intermediate)
+    unless intermediate?(transformer, intermediate)
       return false
     end
 
-    unless format_accessor?(format_name, serializer)
+    unless format_accessor?(format_name, transformer)
       return false
     end
 
-    unless format?(format_name, serializer)
+    unless format?(format_name, transformer)
       return false
     end
 
-    format = get_format(format_name, serializer)
+    format = get_format(format_name, transformer)
 
     unless mode?(format, mode)
       return false

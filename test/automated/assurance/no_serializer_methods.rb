@@ -1,6 +1,6 @@
 require_relative '../automated_init'
 
-context "Transformer namespace has no serializer methods" do
+context "Transformer namespace has no transformer methods" do
   example = Transform::Controls::NoTransformMethods.example
 
   context "Format" do

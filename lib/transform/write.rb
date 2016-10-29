@@ -20,9 +20,9 @@ module Transform
     end
 
     def self.raw_data(instance)
-      serializer = serializer(instance)
-      assure_mode(serializer, intermediate)
-      serializer.raw_data(instance)
+      transformer = transformer(instance)
+      assure_mode(transformer, intermediate)
+      transformer.raw_data(instance)
     end
   end
 end

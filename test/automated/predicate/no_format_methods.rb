@@ -3,8 +3,8 @@ require_relative '../automated_init'
 context "Format has no format methods" do
   example = Transform::Controls::NoFormatMethods.example
   subject_const = Transform.subject_const(example)
-  serializer = Transform.get_serializer(subject_const)
-  format = Transform.get_format(:some_format, serializer)
+  transformer = Transform.get_transformer(subject_const)
+  format = Transform.get_format(:some_format, transformer)
 
   [Transform::Read, Transform::Write].each do |cls|
     test "#{cls.name} implementation is not detected" do

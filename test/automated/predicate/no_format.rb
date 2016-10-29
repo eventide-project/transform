@@ -1,9 +1,9 @@
 require_relative '../automated_init'
 
-context "Class has no serializer namespace" do
+context "Class has no transformer namespace" do
   example = Transform::Controls::NoFormat.example
   subject_const = Transform.subject_const(example)
-  serializer = Transform.get_serializer(subject_const)
+  transformer = Transform.get_transformer(subject_const)
 
   [Transform::Read, Transform::Write].each do |cls|
     test "#{cls.name} implementation is not detected" do
@@ -13,7 +13,7 @@ context "Class has no serializer namespace" do
   end
 
   test "Format is not detected" do
-    detected = Transform.format?(:some_format, serializer)
+    detected = Transform.format?(:some_format, transformer)
     assert(!detected)
   end
 end

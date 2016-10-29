@@ -4,9 +4,9 @@ context "Transformer has no format namespace" do
   test "Is an error" do
     example = Transform::Controls::NoFormat.example
     subject_const = Transform.subject_const(example)
-    serializer = Transform.get_serializer(subject_const)
+    transformer = Transform.get_transformer(subject_const)
 
-    assert proc { Transform.format(serializer, :some_format) } do
+    assert proc { Transform.format(transformer, :some_format) } do
       raises_error? Transform::Error
     end
   end
