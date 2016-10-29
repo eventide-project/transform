@@ -30,7 +30,7 @@ module Transform
 
     def self.raw_data(instance)
       logger.trace { "Transforming instance to raw data" }
-      logger.trace(tag: [:data, :instance]) { instance.pretty_inspect }
+      logger.trace(tags: [:data, :instance]) { instance.pretty_inspect }
 
       transformer = transformer(instance)
       assure_mode(transformer, intermediate)
