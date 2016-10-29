@@ -3,7 +3,7 @@ module Transform
     extend Transform
 
     def self.mode
-      :deserialize
+      :read
     end
 
     def self.intermediate
@@ -18,7 +18,7 @@ module Transform
       format = format(cls, format_name)
 
       assure_mode(format, mode)
-      raw_data = format.deserialize text
+      raw_data = format.read text
 
       instance(raw_data, cls)
     end

@@ -23,11 +23,11 @@ module Transform
         end
 
         module SomeFormat
-          def self.serialize(raw_data)
+          def self.write(raw_data)
             Controls::Text.example
           end
 
-          def self.deserialize(text)
+          def self.read(text)
             Controls::RawData.example
           end
         end

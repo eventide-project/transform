@@ -3,7 +3,7 @@ module Transform
     extend Transform
 
     def self.mode
-      :serialize
+      :write
     end
 
     def self.intermediate
@@ -16,7 +16,7 @@ module Transform
       raw_data = raw_data(instance)
 
       assure_mode(format, mode)
-      format.serialize(raw_data)
+      format.write(raw_data)
     end
 
     def self.raw_data(instance)
