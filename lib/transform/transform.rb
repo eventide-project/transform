@@ -22,7 +22,7 @@ module Transform
   end
 
   def get_serializer(subject_const)
-    subject_const.const_get(:Serializer)
+    subject_const.const_get(:Transformer)
   end
 
   def subject_const(subject)
@@ -31,7 +31,7 @@ module Transform
 
   def assure_serializer(subject_const)
     unless serializer_const?(subject_const)
-      raise Error, "#{subject_const.name} doesn't have a `Serializer' namespace"
+      raise Error, "#{subject_const.name} doesn't have a `Transformer' namespace"
     end
   end
 
@@ -41,7 +41,7 @@ module Transform
   end
 
   def serializer_const?(subject_const)
-    subject_const.const_defined?(:Serializer)
+    subject_const.const_defined?(:Transformer)
   end
 
   def assure_format(format_name, serializer)

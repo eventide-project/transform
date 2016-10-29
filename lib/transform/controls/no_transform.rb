@@ -1,6 +1,6 @@
 module Transform
   module Controls
-    module NoSerializer
+    module NoTransformer
       class Example
       end
 
