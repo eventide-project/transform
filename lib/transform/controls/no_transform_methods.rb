@@ -2,7 +2,7 @@ module Transform
   module Controls
     module NoTransformMethods
       class Example
-        module Serializer
+        module Transformer
         end
       end
 

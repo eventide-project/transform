@@ -7,7 +7,7 @@ module Transform
         other.some_attribute == self.some_attribute
       end
 
-      module Serializer
+      module Transformer
         def self.some_format
           SomeFormat
         end

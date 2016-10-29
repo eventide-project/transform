@@ -2,7 +2,7 @@ module Transform
   module Controls
     module NoFormat
       class Example
-        module Serializer
+        module Transformer
           def self.some_format
           end
 
