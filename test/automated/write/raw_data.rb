@@ -3,11 +3,11 @@ require_relative '../automated_init'
 context "Write" do
   context "Raw Data" do
     test "Can be retrieved from transformer before it's converted" do
-      control_raw_data = Transform::Controls::RawData.example
+      control_raw_data = Controls::RawData.example
 
-      instance = Transform::Controls::Subject.example
+      instance = Controls::Subject.example
 
-      raw_data = Transform::Write.raw_data(instance)
+      raw_data = Write.raw_data(instance)
 
       assert(raw_data == control_raw_data)
     end

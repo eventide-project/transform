@@ -1,7 +1,7 @@
 require_relative '../automated_init'
 
 context "Transformer namespace has no transformer methods" do
-  example = Transform::Controls::NoTransformMethods.example
+  example = Controls::NoTransformMethods.example
 
   context "Format" do
     test "Is an Error" do
@@ -15,7 +15,7 @@ context "Transformer namespace has no transformer methods" do
     _ = nil
 
     test "Is an Error" do
-      assert proc { Transform::Read.instance(_, example) } do
+      assert proc { Read.instance(_, example) } do
         raises_error? Transform::Error
       end
     end
@@ -23,7 +23,7 @@ context "Transformer namespace has no transformer methods" do
 
   context "Raw Data" do
     test "Is an Error" do
-      assert proc { Transform::Write.raw_data(example) } do
+      assert proc { Write.raw_data(example) } do
         raises_error? Transform::Error
       end
     end
