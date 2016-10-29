@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = 'transform'
-  s.version = '0.1.1.2'
+  s.version = '0.1.1.3'
   s.summary = 'Common interface for object and format transformation, and transformer discovery'
   s.description = ' '
 
