@@ -5,7 +5,7 @@ context "Write" do
     test "Can be retrieved from transformer before it's converted" do
       control_raw_data = Transform::Controls::RawData.example
 
-      instance = Transform::Controls::Instance.example
+      instance = Transform::Controls::Subject.example
 
       raw_data = Transform::Write.raw_data(instance)
 
