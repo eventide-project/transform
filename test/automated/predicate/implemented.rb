@@ -1,7 +1,7 @@
 require_relative '../automated_init'
 
 context "Implemented" do
-  example = Transform::Controls::Instance.example
+  example = Transform::Controls::Subject.example
 
   [Transform::Read, Transform::Write].each do |cls|
     test "#{cls.name} implementation is detected" do

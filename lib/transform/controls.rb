@@ -1,7 +1,6 @@
 require 'transform/controls/text'
 require 'transform/controls/raw_data'
-require 'transform/controls/transform'
-require 'transform/controls/instance'
+require 'transform/controls/subject'
 require 'transform/controls/no_transform'
 require 'transform/controls/no_transform_methods'
 require 'transform/controls/no_format'

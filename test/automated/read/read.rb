@@ -3,7 +3,7 @@ require_relative '../automated_init'
 context "Read" do
   text = Transform::Controls::Text.example
 
-  control_instance = Transform::Controls::Instance.example
+  control_instance = Transform::Controls::Subject.example
   example_class = control_instance.class
 
   test "Converts text into an instance" do
