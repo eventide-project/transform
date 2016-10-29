@@ -1,6 +1,6 @@
 require_relative '../automated_init'
 
-context "Transform" do
+context "Write" do
   test "Transforms an instance into text" do
     control_text = Transform::Controls::Text.example
 

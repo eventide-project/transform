@@ -13,16 +13,16 @@ context "Format has no format methods" do
     end
   end
 
-  context "Transform" do
+  context "Write" do
     test "Not detected" do
-      detected = Transform.mode?(format, :serialize)
+      detected = Transform.mode?(format, :write)
       assert(!detected)
     end
   end
 
-  context "Deserialize" do
+  context "Read" do
     test "Not detected" do
-      detected = Transform.mode?(format, :deserialize)
+      detected = Transform.mode?(format, :read)
       assert(!detected)
     end
   end

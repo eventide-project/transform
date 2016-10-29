@@ -1,6 +1,6 @@
 require_relative '../automated_init'
 
-context "Deserialize" do
+context "Read" do
   text = Transform::Controls::Text.example
 
   control_instance = Transform::Controls::Instance.example

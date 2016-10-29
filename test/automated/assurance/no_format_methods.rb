@@ -3,7 +3,7 @@ require_relative '../automated_init'
 context "Format has no format methods" do
   example = Transform::Controls::NoFormatMethods.example
 
-  context "Serialize" do
+  context "Write" do
     test "Is an Error" do
       assert proc { Transform::Write.(example, :some_format) } do
         raises_error? Transform::Error
@@ -11,7 +11,7 @@ context "Format has no format methods" do
     end
   end
 
-  context "Deserialize" do
+  context "Read" do
     text = Transform::Controls::Text.example
 
     test "Is an Error" do
