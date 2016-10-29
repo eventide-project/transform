@@ -26,7 +26,18 @@ module Transform
     def self.instance(raw_data, cls)
       transformer = transformer(cls)
       assure_mode(transformer, intermediate)
-      transformer.instance(raw_data)
+
+      method = transformer.method(:instance)
+
+      instance = nil
+      case method.parameters.length
+      when 1
+        instance = transformer.instance(raw_data)
+      when 2
+        instance = transformer.instance(raw_data, cls)
+      end
+
+      instance
     end
   end
 end
