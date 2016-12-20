@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = 'evt-transform'
-  s.version = '0.1.1.3'
+  s.version = '0.1.1.4'
   s.summary = 'Common interface for object and format transformation, and transformer discovery'
   s.description = ' '
 
@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'evt-log'
 
-  s.add_development_dependency 'ntl-test_bench'
+  s.add_development_dependency 'test_bench'
 end
