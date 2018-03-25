@@ -8,12 +8,12 @@ context "Class has no transformer namespace" do
   [Read, Write].each do |cls|
     test "#{cls.name} implementation is not detected" do
       implemented = cls.implemented?(example, :some_format)
-      assert(!implemented)
+      refute(implemented)
     end
   end
 
   test "Format is not detected" do
     detected = Transform.format?(:some_format, transformer)
-    assert(!detected)
+    refute(detected)
   end
 end

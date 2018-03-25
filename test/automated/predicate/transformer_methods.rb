@@ -8,28 +8,28 @@ context "Transformer namespace has no transformer methods" do
   [Read, Write].each do |cls|
     test "#{cls.name} implementation is not detected" do
       implemented = cls.implemented?(example, :some_format)
-      assert(!implemented)
+      refute(implemented)
     end
   end
 
   context "Format" do
     test "Not detected" do
       format = Transform.format_accessor?(:some_format, transformer)
-      assert(!format)
+      refute(format)
     end
   end
 
   context "Instance" do
     test "Not detected" do
       detected = Transform.intermediate?(transformer, :instance)
-      assert(!detected)
+      refute(detected)
     end
   end
 
   context "Raw Data" do
     test "Not detected" do
       detected = Transform.intermediate?(transformer, :raw_data)
-      assert(!detected)
+      refute(detected)
     end
   end
 end
