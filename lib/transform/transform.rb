@@ -22,7 +22,11 @@ module Transform
   end
 
   def get_transformer(subject_const)
-    subject_const.const_get(:Transformer)
+    if transformer_const?(subject_const)
+      return subject_const.const_get(:Transformer)
+    elsif transform_const?(subject_const)
+      return subject_const.const_get(:Transform)
+    end
   end
 
   def subject_const(subject)
@@ -30,9 +34,9 @@ module Transform
   end
 
   def assure_transformer(subject_const)
-    unless transformer_const?(subject_const)
-      raise Error, "#{subject_const.name} doesn't have a `Transformer' namespace"
-    end
+    return if transform_const?(subject_const) || transformer_const?(subject_const)
+
+    raise Error, "#{subject_const.name} doesn't have a `Transformer' or 'Transform' namespace"
   end
 
   def transformer?(subject)
@@ -41,7 +45,11 @@ module Transform
   end
 
   def transformer_const?(subject_const)
-    subject_const.const_defined?(:Transformer)
+    subject_const.constants.any?{ |c| c.to_sym == :Transformer }
+  end
+
+  def transform_const?(subject_const)
+    subject_const.constants.any?{ |c| c.to_sym == :Transform }
   end
 
   def assure_format(format_name, transformer)
