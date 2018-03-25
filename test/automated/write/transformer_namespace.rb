@@ -4,7 +4,7 @@ context "Write" do
   test "Transforms an instance into text" do
     control_text = Controls::Text.example
 
-    instance = Controls::Subject.example
+    instance = Controls::Subject::Transformer.example
 
     text = Write.(instance, :some_format)
 
