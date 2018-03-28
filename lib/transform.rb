@@ -1,4 +1,5 @@
 require 'log'
+require 'protocol'
 
 require 'transform/log'
 require 'transform/transform'
