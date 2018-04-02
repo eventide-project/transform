@@ -28,6 +28,16 @@ module Transform
     get_transformer(subject_constant)
   end
 
+  def transformer_name(subject_constant)
+    if transform_const?(subject_constant)
+      return :Transform
+    elsif transformer_const?(subject_constant)
+      return :Transformer
+    else
+      return nil
+    end
+  end
+
   def get_transformer(subject_constant)
     # if transformer_const?(subject_constant)
     #   return subject_constant.const_get(:Transformer)

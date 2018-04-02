@@ -34,12 +34,32 @@ module Transform
 
       subject_constant = subject_constant(instance)
 
-      format = format(subject_constant, format_name)
+      transformer_name = transformer_name(subject_constant)
 
-      raw_data = raw_data(instance)
+      if transformer_name.nil?
+        raise Error, "#{subject_constant.name} doesn't have a `Transformer' or 'Transform' namespace"
+      end
 
-      assure_mode(format, mode)
+      transformer_reflection = Reflect.(instance, transformer_name, strict: true)
 
+      format_reflection = transformer_reflection.get(format_name)
+
+
+
+      # format = format(subject_constant, format_name)
+
+      # raw_data = raw_data(instance)
+
+
+      transformer = transformer_reflection.constant
+      raw_data = transformer.raw_data(instance)
+
+
+      # assure_mode(format, mode)
+
+      # transformed = format.write(raw_data)
+
+      format = format_reflection.constant
       transformed = format.write(raw_data)
 
       logger.info { "Wrote (Format Name: #{format_name.inspect})" }
