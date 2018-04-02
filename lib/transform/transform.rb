@@ -101,35 +101,4 @@ module Transform
   def intermediate?(transformer, intermediate_name)
     transformer.respond_to?(intermediate_name)
   end
-
-  ## needed?
-  def __implemented?(subject, format_name)
-    subject_constant = subject_constant(subject)
-
-    unless transformer_const?(subject_constant)
-      return false
-    end
-
-    transformer = get_transformer(subject_constant)
-
-    unless intermediate?(transformer, intermediate)
-      return false
-    end
-
-    unless format_accessor?(format_name, transformer)
-      return false
-    end
-
-    unless format?(format_name, transformer)
-      return false
-    end
-
-    format = get_format(format_name, transformer)
-
-    unless mode?(format, mode)
-      return false
-    end
-
-    true
-  end
 end
