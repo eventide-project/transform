@@ -10,6 +10,24 @@ module Transform
       :raw_data
     end
 
+    def self.__call(instance, format_name)
+      logger.trace { "Writing (Format Name: #{format_name.inspect})" }
+      logger.trace(tags: [:data, :instance]) { instance.pretty_inspect }
+
+      format = format(instance, format_name)
+
+      raw_data = raw_data(instance)
+
+      assure_mode(format, mode)
+
+      transformed = format.write(raw_data)
+
+      logger.info { "Wrote (Format Name: #{format_name.inspect})" }
+      logger.debug(tags: [:data, :transformed]) { transformed.pretty_inspect }
+
+      transformed
+    end
+
     def self.call(instance, format_name)
       logger.trace { "Writing (Format Name: #{format_name.inspect})" }
       logger.trace(tags: [:data, :instance]) { instance.pretty_inspect }
