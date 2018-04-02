@@ -2,8 +2,8 @@ require_relative '../automated_init'
 
 context "Transformer namespace has no transformer methods" do
   example = Controls::NoTransformMethods.example
-  subject_const = Transform.subject_const(example)
-  transformer = Transform.get_transformer(subject_const)
+  subject_constant = Transform.subject_constant(example)
+  transformer = Transform.get_transformer(subject_constant)
 
   [Read, Write].each do |cls|
     test "#{cls.name} implementation is not detected" do

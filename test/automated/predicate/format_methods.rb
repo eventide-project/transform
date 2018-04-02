@@ -2,8 +2,8 @@ require_relative '../automated_init'
 
 context "Format has no format methods" do
   example = Controls::NoFormatMethods.example
-  subject_const = Transform.subject_const(example)
-  transformer = Transform.get_transformer(subject_const)
+  subject_constant = Transform.subject_constant(example)
+  transformer = Transform.get_transformer(subject_constant)
   format = Transform.get_format(:some_format, transformer)
 
   [Read, Write].each do |cls|

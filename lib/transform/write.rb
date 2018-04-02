@@ -10,29 +10,31 @@ module Transform
       :raw_data
     end
 
-    def self.__call(instance, format_name)
-      logger.trace { "Writing (Format Name: #{format_name.inspect})" }
-      logger.trace(tags: [:data, :instance]) { instance.pretty_inspect }
+    # def self.__call(instance, format_name)
+    #   logger.trace { "Writing (Format Name: #{format_name.inspect})" }
+    #   logger.trace(tags: [:data, :instance]) { instance.pretty_inspect }
 
-      format = format(instance, format_name)
+    #   format = format(instance, format_name)
 
-      raw_data = raw_data(instance)
+    #   raw_data = raw_data(instance)
 
-      assure_mode(format, mode)
+    #   assure_mode(format, mode)
 
-      transformed = format.write(raw_data)
+    #   transformed = format.write(raw_data)
 
-      logger.info { "Wrote (Format Name: #{format_name.inspect})" }
-      logger.debug(tags: [:data, :transformed]) { transformed.pretty_inspect }
+    #   logger.info { "Wrote (Format Name: #{format_name.inspect})" }
+    #   logger.debug(tags: [:data, :transformed]) { transformed.pretty_inspect }
 
-      transformed
-    end
+    #   transformed
+    # end
 
     def self.call(instance, format_name)
       logger.trace { "Writing (Format Name: #{format_name.inspect})" }
       logger.trace(tags: [:data, :instance]) { instance.pretty_inspect }
 
-      format = format(instance, format_name)
+      subject_constant = subject_constant(instance)
+
+      format = format(subject_constant, format_name)
 
       raw_data = raw_data(instance)
 
@@ -50,7 +52,9 @@ module Transform
       logger.trace { "Transforming instance to raw data" }
       logger.trace(tags: [:data, :instance]) { instance.pretty_inspect }
 
-      transformer = transformer(instance)
+      subject_constant = subject_constant(instance)
+
+      transformer = transformer(subject_constant)
       assure_mode(transformer, intermediate)
 
       raw_data = transformer.raw_data(instance)

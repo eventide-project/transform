@@ -4,8 +4,10 @@ context "Transformer namespace has no transformer methods" do
   example = Controls::NoTransformMethods.example
 
   context "Format" do
+    example_class = example.class
+
     test "Is an Error" do
-      assert proc { Transform.format(example, :some_format) } do
+      assert proc { Transform.format(example_class, :some_format) } do
         raises_error? Transform::Error
       end
     end

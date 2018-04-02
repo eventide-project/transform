@@ -1,10 +1,11 @@
 module Transform
   extend self
 
-  class Error < RuntimeError; end
+  Error = Class.new(RuntimeError)
 
-  def format(subject, format_name)
-    transformer = transformer(subject)
+  # EG: JSON is a "format" namespace
+  def format(subject_constant, format_name)
+    transformer = transformer(subject_constant)
 
     assure_format(format_name, transformer)
     get_format(format_name, transformer)
@@ -14,42 +15,53 @@ module Transform
     transformer.send(format_name)
   end
 
-  def transformer(subject)
-    subject_const = subject_const(subject)
-
-    assure_transformer(subject_const)
-    get_transformer(subject_const)
+  def __transformer(subject)
+    subject_constant = subject_constant(subject)
+    assure_transformer(subject_constant)
+    get_transformer(subject_constant)
   end
 
-  def get_transformer(subject_const)
-    if transformer_const?(subject_const)
-      return subject_const.const_get(:Transformer)
-    elsif transform_const?(subject_const)
-      return subject_const.const_get(:Transform)
+  ## New one always works off subj const
+  def transformer(subject_constant)
+    ## subject_constant = subject_constant(subject)
+    assure_transformer(subject_constant)
+    get_transformer(subject_constant)
+  end
+
+  def get_transformer(subject_constant)
+    # if transformer_const?(subject_constant)
+    #   return subject_constant.const_get(:Transformer)
+    # elsif transform_const?(subject_constant)
+    #   return subject_constant.const_get(:Transform)
+    # end
+    if transform_const?(subject_constant)
+      return subject_constant.const_get(:Transform)
+    elsif transformer_const?(subject_constant)
+      return subject_constant.const_get(:Transformer)
     end
   end
 
-  def subject_const(subject)
+  def subject_constant(subject)
     [Module, Class].include?(subject.class) ? subject : subject.class
   end
 
-  def assure_transformer(subject_const)
-    return if transform_const?(subject_const) || transformer_const?(subject_const)
+  def assure_transformer(subject_constant)
+    return if transform_const?(subject_constant) || transformer_const?(subject_constant)
 
-    raise Error, "#{subject_const.name} doesn't have a `Transformer' or 'Transform' namespace"
+    raise Error, "#{subject_constant.name} doesn't have a `Transformer' or 'Transform' namespace"
   end
 
   def transformer?(subject)
-    subject_const = subject_const(subject)
-    transformer_const?(subject_const)
+    subject_constant = subject_constant(subject)
+    transformer_const?(subject_constant)
   end
 
-  def transformer_const?(subject_const)
-    subject_const.constants.any?{ |c| c.to_sym == :Transformer }
+  def transform_const?(subject_constant)
+    Reflect.constant?(subject_constant, :Transform)
   end
 
-  def transform_const?(subject_const)
-    subject_const.constants.any?{ |c| c.to_sym == :Transform }
+  def transformer_const?(subject_constant)
+    Reflect.constant?(subject_constant, :Transformer)
   end
 
   def assure_format(format_name, transformer)
@@ -82,13 +94,13 @@ module Transform
   end
 
   def implemented?(subject, format_name)
-    subject_const = subject_const(subject)
+    subject_constant = subject_constant(subject)
 
-    unless transformer_const?(subject_const)
+    unless transformer_const?(subject_constant)
       return false
     end
 
-    transformer = get_transformer(subject_const)
+    transformer = get_transformer(subject_constant)
 
     unless intermediate?(transformer, intermediate)
       return false
