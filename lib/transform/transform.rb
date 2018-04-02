@@ -57,7 +57,6 @@ module Transform
 
   def assure_transformer(subject_constant)
     return if transform_const?(subject_constant) || transformer_const?(subject_constant)
-
     raise Error, "#{subject_constant.name} doesn't have a `Transformer' or 'Transform' namespace"
   end
 
@@ -103,7 +102,8 @@ module Transform
     transformer.respond_to?(intermediate_name)
   end
 
-  def implemented?(subject, format_name)
+  ## needed?
+  def __implemented?(subject, format_name)
     subject_constant = subject_constant(subject)
 
     unless transformer_const?(subject_constant)
