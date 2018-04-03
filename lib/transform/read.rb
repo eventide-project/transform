@@ -13,7 +13,7 @@ module Transform
       logger.trace { "Reading (Format Name: #{format_name.inspect})" }
       logger.trace(tags: [:data, :input]) { input.pretty_inspect }
 
-      subject_constant = subject_constant(cls)
+      subject_constant = Reflect.subject_constant(cls)
 
       transformer_name = transformer_name(subject_constant)
 
@@ -39,7 +39,7 @@ module Transform
       logger.trace(tags: [:data, :raw_data]) { raw_data.pretty_inspect }
 
       if transformer_reflection.nil?
-        subject_constant = subject_constant(cls)
+        subject_constant = Reflect.subject_constant(cls)
         transformer_name = transformer_name(subject_constant)
 
         if transformer_name.nil?
