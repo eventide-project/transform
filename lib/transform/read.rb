@@ -46,8 +46,7 @@ module Transform
     end
 
     def self.get_instance(transformer, raw_data, cls)
-## Test - doesn't have it
-      assure_instance(transformer)
+      assure_instance_method(transformer)
 
       method = transformer.method(:instance)
 
@@ -62,7 +61,7 @@ module Transform
       instance
     end
 
-    def self.assure_instance(transformer)
+    def self.assure_instance_method(transformer)
       unless transformer.respond_to?(:instance)
         raise Error, "#{transformer.name} does not implement `instance'"
       end

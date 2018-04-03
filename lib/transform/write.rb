@@ -35,12 +35,26 @@ module Transform
         transformer_reflection = Reflect.(instance, transformer_name, strict: true)
       end
 
-      raw_data = transformer_reflection.(:raw_data, instance)
+      transformer = transformer_reflection.constant
+      raw_data = get_raw_data(transformer, instance)
 
       logger.debug { "Transformed to raw data" }
       logger.debug(tags: [:data, :raw_data]) { raw_data.pretty_inspect }
 
       raw_data
+    end
+
+    # This is not strictly necessary since Reflection does this
+    # but it provides symmetry with Read, which cannot use Reflection
+    def self.get_raw_data(transformer, instance)
+      assure_raw_data_method(transformer)
+      transformer.raw_data(instance)
+    end
+
+    def self.assure_raw_data_method(transformer)
+      unless transformer.respond_to?(:raw_data)
+        raise Error, "#{transformer.name} does not implement `raw_data'"
+      end
     end
 
     def self.logger
