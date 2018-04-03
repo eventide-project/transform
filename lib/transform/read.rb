@@ -37,9 +37,17 @@ module Transform
 
       transformer = transformer_reflection.constant
 
-      unless transformer.respond_to?(:instance)
-        raise Error, "#{transformer.name} does not implement `instance'"
-      end
+      instance = get_instance(transformer, raw_data, cls)
+
+      logger.debug { "Transformed raw data to instance" }
+      logger.debug(tags: [:data, :instance]) { instance.pretty_inspect }
+
+      instance
+    end
+
+    def self.get_instance(transformer, raw_data, cls)
+## Test - doesn't have it
+      assure_instance(transformer)
 
       method = transformer.method(:instance)
 
@@ -51,10 +59,13 @@ module Transform
         instance = transformer.instance(raw_data, cls)
       end
 
-      logger.debug { "Transformed raw data to instance" }
-      logger.debug(tags: [:data, :instance]) { instance.pretty_inspect }
-
       instance
+    end
+
+    def self.assure_instance(transformer)
+      unless transformer.respond_to?(:instance)
+        raise Error, "#{transformer.name} does not implement `instance'"
+      end
     end
 
     def self.logger
