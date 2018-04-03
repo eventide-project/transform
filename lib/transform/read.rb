@@ -3,13 +3,6 @@ module Transform
     extend Transform
 
     def self.call(input, format_name, cls)
-      ## Backward compatibility for past inversion of these arguments
-      ## Search codebase looking for uses of this, correct them, and
-      ## remove this special case
-      if format_name.instance_of?(Class) && cls.instance_of?(Symbol)
-        cls, format_name = format_name, cls
-      end
-
       logger.trace { "Reading (Format Name: #{format_name.inspect})" }
       logger.trace(tags: [:data, :input]) { input.pretty_inspect }
 
