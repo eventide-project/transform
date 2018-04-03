@@ -2,11 +2,11 @@ module Transform
   module Write
     extend Transform
 
-    def self.call(instance, format_name)
+    def self.call(input, format_name)
       logger.trace { "Writing (Format Name: #{format_name.inspect})" }
-      logger.trace(tags: [:data, :instance]) { instance.pretty_inspect }
+      logger.trace(tags: [:data, :input]) { input.pretty_inspect }
 
-      subject_constant = subject_constant(instance)
+      subject_constant = subject_constant(input)
 
       transformer_name = transformer_name(subject_constant)
 
@@ -14,18 +14,17 @@ module Transform
         raise Error, "#{subject_constant.name} doesn't have a `Transformer' or 'Transform' namespace"
       end
 
-      transformer_reflection = Reflect.(instance, transformer_name, strict: true)
-
-      raw_data = raw_data(instance, transformer_reflection)
-
+      transformer_reflection = Reflect.(input, transformer_name, strict: true)
       format_reflection = transformer_reflection.get(format_name)
 
-      transformed = format_reflection.(:write, raw_data)
+      raw_data = raw_data(input, transformer_reflection)
+
+      output = format_reflection.(:write, raw_data)
 
       logger.info { "Wrote (Format Name: #{format_name.inspect})" }
-      logger.debug(tags: [:data, :transformed]) { transformed.pretty_inspect }
+      logger.debug(tags: [:data, :output]) { output.pretty_inspect }
 
-      transformed
+      output
     end
 
     def self.raw_data(instance, transformer_reflection=nil)
