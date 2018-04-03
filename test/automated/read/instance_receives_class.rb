@@ -6,9 +6,13 @@ context "Read" do
   control_instance = Controls::Subject::InstanceReceivesClass.example
   example_class = control_instance.class
 
-  test "Instance receives raw data as well as class" do
-    instance = Read.(text, :some_format, example_class)
-    assert(instance.raw_data == text)
+  instance = Read.(text, :some_format, example_class)
+
+  test "Instance of class is created" do
     assert(instance.cls == example_class)
+  end
+
+  test "Data is transformed into the instance" do
+    assert(instance.raw_data == text)
   end
 end
