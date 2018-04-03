@@ -21,6 +21,18 @@ module Transform
     end
   end
 
+  def transformer_reflection(subject)
+    subject_constant = Reflect.subject_constant(subject)
+
+    transformer_name = transformer_name(subject_constant)
+
+    if transformer_name.nil?
+      raise Error, "#{subject_constant.name} doesn't have a Transformer or Transform namespace"
+    end
+
+    Reflect.(subject, transformer_name, strict: true)
+  end
+
   def transformer?(subject)
     subject_constant = Reflect.subject_constant(subject)
     transformer_const?(subject_constant)

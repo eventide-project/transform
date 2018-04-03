@@ -6,15 +6,8 @@ module Transform
       logger.trace { "Writing (Format Name: #{format_name.inspect})" }
       logger.trace(tags: [:data, :input]) { input.pretty_inspect }
 
-      subject_constant = Reflect.subject_constant(input)
+      transformer_reflection = transformer_reflection(input)
 
-      transformer_name = transformer_name(subject_constant)
-
-      if transformer_name.nil?
-        raise Error, "#{subject_constant.name} doesn't have a `Transformer' or 'Transform' namespace"
-      end
-
-      transformer_reflection = Reflect.(input, transformer_name, strict: true)
       format_reflection = transformer_reflection.get(format_name)
 
       raw_data = raw_data(input, transformer_reflection)
