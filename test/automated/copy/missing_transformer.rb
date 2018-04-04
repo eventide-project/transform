@@ -2,7 +2,7 @@ require_relative '../automated_init'
 
 context "Copy" do
   context "Missing Transformer" do
-    instance = Object.new
+    instance = Transform::Controls::NoTransformer.example
 
     test "Raises error" do
       assert proc { Transform::Copy.(instance) } do
