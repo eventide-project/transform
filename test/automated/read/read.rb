@@ -4,7 +4,7 @@ context "Read" do
   context "Transform Namespace" do
     text = Controls::Text.example
 
-    [Controls::Subject::Transform, Controls::Subject::Transformer].each do |control|
+    [Controls::Subject::Transform, Controls::Subject::Transformer, Controls::Subject::ObjectFormatter].each do |control|
 
       context "#{control.name}" do
         control_instance = control.example

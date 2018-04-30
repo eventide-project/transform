@@ -4,7 +4,7 @@ module Transform
   Error = Class.new(RuntimeError)
 
   def transformer_reflection(subject)
-    subject_constant = Reflect.subject_constant(subject)
+    subject_constant = Reflect.constant(subject)
 
     transformer_name = transformer_name(subject_constant)
 
@@ -34,7 +34,7 @@ module Transform
   end
 
   def transformer?(subject)
-    subject_constant = Reflect.subject_constant(subject)
+    subject_constant = Reflect.constant(subject)
     transform_const?(subject_constant) || transformer_const?(subject_constant)
   end
 end

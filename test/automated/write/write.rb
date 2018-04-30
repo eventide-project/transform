@@ -4,10 +4,12 @@ context "Write" do
   context "Transform Namespace" do
     control_text = Controls::Text.example
 
-    [Controls::Subject::Transform, Controls::Subject::Transformer].each do |control|
+    ## [Controls::Subject::Transform, Controls::Subject::Transformer, Controls::Subject::ObjectFormatter].each do |control|
+    [Controls::Subject::ObjectFormatter].each do |control|
 
       context "#{control.name}" do
-        instance = Controls::Subject::Transform.example
+        # instance = Controls::Subject::Transform.example
+        instance = control.example
 
         text = Write.(instance, :some_format)
 
