@@ -8,7 +8,7 @@ module Transform
 
       transformer_reflection = transformer_reflection(input)
 
-      format_reflection = transformer_reflection.get(format_name)
+      format_reflection = transformer_reflection.get(format_name, coerce_constant: false)
 
       raw_data = raw_data(input, transformer_reflection)
 
@@ -25,7 +25,7 @@ module Transform
       logger.trace(tags: [:data, :instance]) { instance.pretty_inspect }
 
       if transformer_reflection.nil?
-        subject_constant = Reflect.subject_constant(instance)
+        subject_constant = Reflect.constant(instance)
         transformer_name = transformer_name(subject_constant)
 
         if transformer_name.nil?
@@ -35,7 +35,9 @@ module Transform
         transformer_reflection = Reflect.(instance, transformer_name, strict: true)
       end
 
-      transformer = transformer_reflection.constant
+      ## could be the object if not coercing to constant
+      ## transformer = transformer_reflection.constant
+      transformer = transformer_reflection.target
       raw_data = get_raw_data(transformer, instance)
 
       logger.debug { "Transformed to raw data" }

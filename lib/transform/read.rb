@@ -8,7 +8,7 @@ module Transform
 
       transformer_reflection = transformer_reflection(cls)
 
-      format_reflection = transformer_reflection.get(format_name)
+      format_reflection = transformer_reflection.get(format_name, coerce_constant: false)
 
       raw_data = format_reflection.(:read, input)
 
@@ -28,7 +28,7 @@ module Transform
         transformer_reflection = transformer_reflection(cls)
       end
 
-      transformer = transformer_reflection.constant
+      transformer = transformer_reflection.target
 
       instance = get_instance(transformer, raw_data, cls)
 
