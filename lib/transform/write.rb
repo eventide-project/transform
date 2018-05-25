@@ -35,7 +35,7 @@ module Transform
         transformer_reflection = Reflect.(instance, transformer_name, strict: true)
       end
 
-      ## could be the object if not coercing to constant
+      ## Could be the object if not coercing to constant
       ## transformer = transformer_reflection.constant
       transformer = transformer_reflection.target
       raw_data = get_raw_data(transformer, instance)
