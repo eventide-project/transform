@@ -77,3 +77,26 @@ test "Object is transformed from format" do
   assert(example.some_attribute == 'some value')
   assert(example.some_other_attribute == 'some other value')
 end
+
+# The intermediate, raw data representation can be retrieved
+# directly from the transformer, given an instance
+
+example = Example.new
+
+data = Transform::Write.raw_data(e)
+
+test "Object is transformed into raw data" do
+  assert(data == {:some_attribute=>"some value", :some_other_attribute=>"some other value"})
+end
+
+# An instance representation can be retrieved directly from
+# the transformer, given a raw data representation
+
+data = {:some_attribute=>"some value", :some_other_attribute=>"some other value"}
+
+example = Transform::Read.instance(data, Example)
+
+test "Object is transformed from raw data" do
+  assert(example.some_attribute == 'some value')
+  assert(example.some_other_attribute == 'some other value')
+end
