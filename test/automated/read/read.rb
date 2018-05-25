@@ -10,8 +10,9 @@ context "Read" do
         control_instance = control.example
         example_class = control_instance.class
 
+        instance = Read.(text, :some_format, example_class)
+
         test "Converts text into an instance" do
-          instance = Read.(text, :some_format, example_class)
           assert(instance == control_instance)
         end
       end
