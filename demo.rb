@@ -100,3 +100,64 @@ test "Object is transformed from raw data" do
   assert(example.some_attribute == 'some value')
   assert(example.some_other_attribute == 'some other value')
 end
+
+# If the protocol is not properly implemented,
+# errors will result
+
+class Example2
+  attr_accessor :some_attribute
+  attr_accessor :some_other_attribute
+end
+
+e = Example2.new
+
+test "Missing transformer is an error" do
+  assert proc { Transform::Write.(e, :some_format) } do
+    raises_error? Transform::Error
+  end
+end
+
+
+class Example2
+  attr_accessor :some_attribute
+  attr_accessor :some_other_attribute
+
+  module Transform
+    def self.some_format
+      SomeFormat
+    end
+
+    def self.instance(raw_data)
+      instance = Example.new
+      instance.some_attribute = raw_data[:some_attribute]
+      instance.some_other_attribute = raw_data[:some_other_attribute]
+      instance
+    end
+
+    def self.raw_data(instance)
+      {
+        some_attribute: instance.some_attribute,
+        some_other_attribute: instance.some_other_attribute,
+      }
+    end
+
+    module SomeFormat
+    end
+  end
+end
+
+e = Example2.new
+
+test "Missing write method is an error" do
+  assert proc { Transform::Write.(e, :some_format) } do
+    raises_error? Reflect::Error
+  end
+end
+
+transformed == 'some_attribute=some value/some_other_attribute=some other value'
+
+test "Missing read method is an error" do
+  assert proc { Transform::Read.(transformed, :some_format, Example2) } do
+    raises_error? Reflect::Error
+  end
+end
