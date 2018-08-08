@@ -42,7 +42,7 @@ e = Example.new
 e.some_attribute = "attribute"
 
 
-# writing
+# Writing
 
 transformed = Transform::Write.(e, :json)
 
@@ -55,7 +55,7 @@ JSON
 assert transformed == expected
 
 
-# reading
+# Reading
 
 instance = Transform::Read.(transformed, :json, Example)
 
@@ -63,12 +63,12 @@ assert instance.kind_of?(Example)
 assert instance.some_attribute == "attribute"
 ```
 
-There is quite a bit going on here. The process of transforming a class to and from data is split into two phases:
+The process of transforming a class to and from data is split into two phases:
 
- 1) transform to and from an instance and an intermediary format (a hash)
- 2) transform to and from data (json in this example)
+1. Transform to and from an instance and an intermediary format (a hash)
+2. Transform to and from data (json in this example)
 
-The reason for this is that it is quite common to have multiple data representations of a class. By splitting the process of transformation into two phases, we can reduce the complexity of each individual phase, as well as save ourselves work when implementing additional formats.
+It is quite common to have multiple data representations of a class. By splitting the process of transformation into two phases, we can reduce the complexity of each individual phase, as well as save ourselves work when implementing additional formats.
 
 ### Intermediary Format
 
