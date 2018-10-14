@@ -29,14 +29,12 @@ module Transform
         transformer_name = transformer_name(subject_constant)
 
         if transformer_name.nil?
-          raise Error, "#{subject_constant.name} doesn't have a `Transformer' or 'Transform' namespace"
+          raise Error, "#{subject_constant.name} doesn't have a Transform namespace implementing the transformation protocol"
         end
 
         transformer_reflection = Reflect.(instance, transformer_name, strict: true)
       end
 
-      ## Could be the object if not coercing to constant
-      ## transformer = transformer_reflection.constant
       transformer = transformer_reflection.target
       raw_data = get_raw_data(transformer, instance)
 
