@@ -9,7 +9,7 @@ module Transform
     transformer_name = transformer_name(subject_constant)
 
     if transformer_name.nil?
-      raise Error, "#{subject_constant.name} doesn't have a Transform namespace implementing the transformation protocol"
+      raise Error, "#{subject_constant.name} doesn't have a Transform namespace that implements the transformation protocol"
     end
 
     Reflect.(subject, transformer_name, strict: true)
