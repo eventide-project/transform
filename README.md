@@ -88,7 +88,7 @@ class ParentClass
 end
 ```
 
-The `Transform` [protocol](https://en.wikipedia.org/wiki/Protocol_(object-oriented_programming)) within a given class will be discovered when actuating the `Transform` library (`Transform::Write.(e, :json)`).
+The `Transform` [protocol](https://en.wikipedia.org/wiki/Protocol_(object-oriented_programming)) within a given class will be discovered when actuating the `Transform`.
 
 ### Data Format
 
