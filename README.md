@@ -75,14 +75,14 @@ It is quite common to have multiple data representations of a class. By splittin
 The protocol for reading and writing to an intermediary format is:
 
 ```ruby
-class ParentClass
+class SomeClass
   module Transform
     def self.instance(raw_data)
-      # take the raw data, return an instance of the parent class
+      # Return an instance of the class built from the raw data
     end
 
     def self.raw_data(instance)
-      # take the instance, return raw data
+      # Return raw data built from the instance
     end
   end
 end
@@ -95,22 +95,22 @@ The `Transform` [protocol](https://en.wikipedia.org/wiki/Protocol_(object-orient
 The protocol for reading and writing to a data format is:
 
 ```ruby
-class ParentClass
+class SomeClass
   module Transform
 
     # A format name can be whatever you like.
     # It will be invoked as a symbol when the Transform library is actuated
     def self.format_name
-      # return a reference to the format module
+      # Return a reference to the format module
     end
 
     module FormatModule
       def self.read(formatted_data)
-        # take the formatted data, return intermediary data
+        # Transform the formatted data into the intermediate data format
       end
 
       def self.write(intermediary_data)
-        # take intermediary data, return formatted data
+        # Transform the intermediary data into the formatted data
       end
     end
   end
