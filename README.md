@@ -63,12 +63,23 @@ assert instance.kind_of?(Example)
 assert instance.some_attribute == "attribute"
 ```
 
-The process of transforming a class to and from data is split into two phases:
+# Transformation Process
 
-1. Transform to and from an instance and an intermediary format (a hash)
-2. Transform to and from data (json in this example)
+The process of transforming a class to and from data is split into two phases.
 
-It is quite common to have multiple data representations of a class. By splitting the process of transformation into two phases, we can reduce the complexity of each individual phase, as well as save ourselves work when implementing additional formats.
+By splitting the process of transformation into two phases, the complexity of each individual phase is reduced, and additional work is avoided when implementing multiple formats.
+
+In all cases, the format accessor is invoked (eg: `json`). The format accessor returns a module that implements the class methods `read` and `write`.
+
+When reading:
+
+1. The `read` method of the format module is invoked. It receives the final formatted data, converts it to the intermediate data format, and returns the intermediate data.
+2. The `instance` method of the `Transform` module is invoked. It receives the intermediate data, builds an instance from it, and returns the instance.
+
+When writing:
+
+1. The `raw_data` method of the `Transform` module is invoked. It receives an instance of the class, converts it to the intermediate data format, and returns the intermediate data.
+2. The `write` method of the format module is invoked. It receives the intermediate data, converts it to the final formatted data, and returns the final formatted data.
 
 ### Intermediary Format
 
@@ -88,7 +99,7 @@ class SomeClass
 end
 ```
 
-The `Transform` [protocol](https://en.wikipedia.org/wiki/Protocol_(object-oriented_programming)) within a given class will be discovered when actuating the `Transform`.
+The `Transform` protocol within a given class will be discovered when actuating the `Transform`.
 
 ### Data Format
 
