@@ -119,7 +119,7 @@ end
 
 ## Custom Formats
 
-A major advantage to this approach is that you are not tied to a specific format in your transformations. The initial example was JSON, but it can just as easily be CSV, YAML, or even something completely custom.
+You're not tied to a specific format in your transformations. The initial example was JSON, but it can just as easily be CSV, YAML, or even something completely custom.
 
 ```ruby
 class Example
