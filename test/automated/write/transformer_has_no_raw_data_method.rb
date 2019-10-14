@@ -5,8 +5,8 @@ context "Write" do
     instance = Controls::NoTransformMethods.example
 
     test "Is an error" do
-      assert proc { Write.(instance, :some_format) } do
-        raises_error? Transform::Error
+      assert_raises Transform::Error do
+        Write.(instance, :some_format)
       end
     end
   end

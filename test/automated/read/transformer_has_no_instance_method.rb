@@ -7,8 +7,8 @@ context "Read" do
     example_class = Controls::NoTransformMethods.example_class
 
     test "Is an error" do
-      assert proc { Read.(text, example_class, :some_format) } do
-        raises_error? Transform::Error
+      assert_raises Transform::Error do
+        Read.(text, example_class, :some_format)
       end
     end
   end

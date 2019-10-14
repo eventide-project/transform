@@ -5,8 +5,8 @@ context "Copy" do
     instance = Transform::Controls::NoTransformer.example
 
     test "Raises error" do
-      assert proc { Transform::Copy.(instance) } do
-        raises_error?(Transform::Error)
+      assert_raises Transform::Error do
+        Transform::Copy.(instance)
       end
     end
   end
