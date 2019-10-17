@@ -5,7 +5,7 @@ context "Write" do
     instance = Controls::NoTransformer.example
 
     test "Is an error" do
-      assert_raises Transform::Error do
+      assert_raises(Transform::Error) do
         Write.(instance, :some_format)
       end
     end

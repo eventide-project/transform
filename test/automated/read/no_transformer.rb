@@ -7,7 +7,7 @@ context "Read" do
     example_class = Controls::NoTransformer.example_class
 
     test "Is an error" do
-      assert_raises Transform::Error do
+      assert_raises(Transform::Error) do
         Read.(text, example_class, :some_format)
       end
     end
